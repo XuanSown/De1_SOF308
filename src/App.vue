@@ -56,7 +56,7 @@ const handleRemovePet = (petId) => {
 <template>
     <div class="container mt-4">
         <h1 class="text-center">Quản lí thú cưng</h1>
-        <FormPet :pet-selected="petSelected" @save-pet="handleSavePet" @remove-pet="handleRemovePet" />
+        <FormPet :pets="pets" :pet-selected="petSelected" @save-pet="handleSavePet" @remove-pet="handleRemovePet" />
         <hr>
         <TablePet :pets="pets" @select-pet="handleSelectPet" />
 
