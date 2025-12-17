@@ -4,8 +4,8 @@ import FormPet from './components/FormPet.vue';
 import TablePet from './components/TablePet.vue';
 
 const pets = reactive([
-    // { id: 'PET01', name: 'Micky', type: 'Chó', age: 2, weight: 5.5, vaccinated: true },
-    // { id: 'PET02', name: 'Mimi', type: 'Mèo', age: 1, weight: 3.2, vaccinated: false }
+    { id: 'PET01', name: 'Micky', type: 'Chó', age: 2, weight: 5.5, vaccinated: true },
+    { id: 'PET02', name: 'Mimi', type: 'Mèo', age: 1, weight: 3.2, vaccinated: false }
 ]);
 
 const petSelected = reactive({
