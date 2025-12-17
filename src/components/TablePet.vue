@@ -13,16 +13,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="pet in pets" :key="pet.id" @click="onSelectPet(pet)" style="cursor: pointer;">
+                <tr v-for="pet in props.pets" :key="pet.id" @click="onSelectPet(pet)" style="cursor: pointer;">
                     <td>{{ pet.id }}</td>
                     <td>{{ pet.name }}</td>
                     <td>{{ pet.type }}</td>
                     <td>{{ pet.age }}</td>
                     <td>{{ pet.weight }}</td>
-                    <td>
-                        <span v-if="pet.vaccinated">Đã tiêm chủng</span>
-                        <span v-else>Chưa tiêm chủng</span>
-                    </td>
+                    <td>{{ pet.vaccinated ? 'Đã tiêm' : 'Chưa tiêm' }}</td>
                 </tr>
             </tbody>
         </table>
@@ -35,12 +32,11 @@
         pets: {
             type: Array,
             required: true,
-            default: ()=> []
         }
     });
 
     const emit = defineEmits(['select-pet'])
     const onSelectPet = (pet) => {
-        emit('select-pet', pet);
-    }
+        emit('select-pet', {...pet});
+    };
 </script>

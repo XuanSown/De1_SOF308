@@ -1,38 +1,55 @@
 <script setup>
-import { ref } from 'vue';
+import { reactive } from 'vue';
 import FormPet from './components/FormPet.vue';
 import TablePet from './components/TablePet.vue';
 
-const pets = ref([
-    { id: 'PET01', name: 'Micky', type: 'Chó', age: 2, weight: 5.5, vaccinated: true },
-    { id: 'PET02', name: 'Mimi', type: 'Mèo', age: 1, weight: 3.2, vaccinated: false }
+const pets = reactive([
+    // { id: 'PET01', name: 'Micky', type: 'Chó', age: 2, weight: 5.5, vaccinated: true },
+    // { id: 'PET02', name: 'Mimi', type: 'Mèo', age: 1, weight: 3.2, vaccinated: false }
 ]);
 
-const petSelected = ref(null);
-const handleSelectPet = (pet) => {
-    petSelected.value = { ...pet }
+const petSelected = reactive({
+    id: '',
+    name: '',
+    type: 'Chó',
+    age: 0,
+    weight: 0,
+    vaccinated: false
+})
+
+const resetForm = () => {
+    Object.assign(petSelected, {
+        id: '',
+        name: '',
+        type: 'Chó',
+        age: 0,
+        weight: 0,
+        vaccinated: false
+    })
+}
+
+const handleSelectPet = (petRow) => {
+    Object.assign(petSelected, petRow);
 }
 
 const handleSavePet = (formData) => {
-    const index = pets.findIndex(p => p.id === formData.id);
-
-    if (index != -1) {
+    const index = pets.find(p => p.id === formData.id);
+    if (index) {
         //tồn tại -> cập nhật
-        pets[index] = formData;
+        Object.assign(index, formData);
     } else {
         //0 tồn tại -> thêm mới
-        pets.push(formData);
+        pets.push({...formData});
     }
-
-    petSelected.value = null
+    resetForm();
 }
 
 const handleRemovePet = (petId) => {
     const index = pets.findIndex(p => p.id === petId);
-        if (index !== -1) {
-            pets.splice(index, 1);
-        }
-        petSelected.value = null;
+    if (index !== -1) {
+        pets.splice(index, 1);
+    }
+    resetForm();
 }
 </script>
 
