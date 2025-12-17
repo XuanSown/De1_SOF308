@@ -47,14 +47,30 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps({
     petSelected: {
         type: Object,
-        default: null
+        default: () => ({
+            id: '',
+            name: '',
+            type: 'Chó',
+            age: 0,
+            weight: 0,
+            vaccinated: false
+        })
+    },
+    pets: {
+        type: Array,
+        default: () => []
     }
 });
+
+const isEditing = computed(() => {
+    if (!props.petSelected?.id) return false;
+    return props.pets.some(p => p.id === props.petSelected.id);
+})
 
 const emit = defineEmits(['save-pet', 'remove-pet']);
 
